@@ -17,3 +17,4 @@ def calculate_average_gpa(students):
     if not students:
         return 0
     return sum(s.gpa for s in students) / len(students)
+#пример изменения
