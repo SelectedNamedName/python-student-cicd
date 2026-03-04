@@ -18,3 +18,5 @@ def calculate_average_gpa(students):
         return 0
     return sum(s.gpa for s in students) / len(students)
 #пример изменения
+def get_version():
+    return "Версия 1.1 (Git Lab)"
