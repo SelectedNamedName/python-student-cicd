@@ -1,9 +1,11 @@
+
 """
 Вспомогательный модуль для работы с текстом и расчетов.
 """
 
 
-def color_text(text, color):
+def color_text(text: str, color: str) -> str:
+
     """
     Текстті терминалда түрлі-түсті етіп шығарады.
 
@@ -11,7 +13,7 @@ def color_text(text, color):
     :param color: Түс атауы (green, blue, yellow, red, bold)
     :return: ANSI кодымен форматталған мәтін
     """
-    colors = {
+    colors: dict[str, str] = {
         "green": "\033[92m",
         "blue": "\033[94m",
         "yellow": "\033[93m",
@@ -22,12 +24,12 @@ def color_text(text, color):
     return f"{colors.get(color, '')}{text}{colors['reset']}"
 
 
-def print_line():
+def print_line() -> None:
     """Көк түсті бөлу сызығын шығарады."""
     print(color_text("-" * 50, "blue"))
 
 
-def calculate_average_gpa(students):
+def calculate_average_gpa(students: list) -> float:
     """
     Студенттер тізімінің орташа GPA-ін есептейді.
 
@@ -35,10 +37,10 @@ def calculate_average_gpa(students):
     :return: Орташа балл (float)
     """
     if not students:
-        return 0
+        return 0.0
     return sum(s.gpa for s in students) / len(students)
 
 
-def get_version():
+def get_version() -> str:
     """Бағдарламаның ағымдағы нұсқасын қайтарады."""
     return "Версия 1.1 (Git Lab)"
