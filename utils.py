@@ -1,18 +1,9 @@
-
-"""
-Вспомогательный модуль для работы с текстом и расчетов.
-"""
+"""Вспомогательный модуль для работы с текстом, расчетов и мониторинга."""
+import psutil
 
 
 def color_text(text: str, color: str) -> str:
-
-    """
-    Текстті терминалда түрлі-түсті етіп шығарады.
-
-    :param text: Шығарылатын мәтін
-    :param color: Түс атауы (green, blue, yellow, red, bold)
-    :return: ANSI кодымен форматталған мәтін
-    """
+    """Текстті терминалда түрлі-түсті етіп шығарады."""
     colors: dict[str, str] = {
         "green": "\033[92m",
         "blue": "\033[94m",
@@ -30,17 +21,19 @@ def print_line() -> None:
 
 
 def calculate_average_gpa(students: list) -> float:
-    """
-    Студенттер тізімінің орташа GPA-ін есептейді.
-
-    :param students: Студенттер объектілерінің тізімі
-    :return: Орташа балл (float)
-    """
+    """Студенттер тізімінің орташа GPA-ін есептейді."""
     if not students:
         return 0.0
     return sum(s.gpa for s in students) / len(students)
 
 
+def get_system_stats() -> str:
+    """Компьютердің ресурстарын (CPU, RAM) тексеру функциясы."""
+    cpu = psutil.cpu_percent(interval=0.5)
+    ram = psutil.virtual_memory().percent
+    return f"Мониторинг: CPU: {cpu}%, RAM: {ram}%"
+
+
 def get_version() -> str:
     """Бағдарламаның ағымдағы нұсқасын қайтарады."""
-    return "Версия 1.1 (Git Lab)"
+    return "Версия 1.1 (Logging & Monitoring)"
