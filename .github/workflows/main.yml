@@ -1,4 +1,4 @@
-name: Python CI
+name: Python_CI_Final_Fix
 
 on: [push]
 
@@ -17,16 +17,11 @@ jobs:
       run: |
         pip install psutil colorama flake8
 
-    - name: Lint with flake8
-      run: |
-        # Показывает ошибки, но не останавливает работу
-        flake8 . --count --exit-zero --statistics
-
     - name: Run tests
       run: |
-        # Теперь, когда файл в корне, эта команда точно его найдет
-        python -m unittest test_logic.py
+        export PYTHONPATH=$PYTHONPATH:.
+        python -m unittest discover .
 
     - name: Build Docker
       run: |
-        docker build -t my-app .
+        docker build -t student-app .
