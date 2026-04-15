@@ -1,0 +1,4 @@
+psutil
+colorama
+flake8
+pytest

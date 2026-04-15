@@ -1,0 +1,35 @@
+name: Python CI
+
+on: [push] # Скрипт срабатывает каждый раз, когда ты отправляешь код на GitHub
+
+jobs:
+  build:
+    runs-on: ubuntu-latest # Используем сервер на Linux
+
+    steps:
+    - uses: actions/checkout@v3 # Скачиваем твой код на сервер GitHub
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: 3.11
+
+    - name: Install dependencies
+      run: |
+        pip install -r requirements.txt
+        pip install flake8 # Устанавливаем линтер для задания
+
+    - name: Lint with flake8
+      run: |
+        # Это требование №3 из задания (Кодты тексеру)
+        flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
+
+    - name: Run tests
+      run: |
+        # Это требование №3 из задания (Бірлік тесттерді іске қосу)
+        python -m unittest test_logic.py
+
+    - name: Build Docker
+      run: |
+        # Это требование №4 из задания (CD процесін қосу)
+        docker build -t my-app .
