@@ -1,4 +1,4 @@
-name: Python_CI_Final_Fix
+name: Python-3-13-CI
 
 on: [push]
 
@@ -6,22 +6,30 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
+    - name: Checkout code
+      uses: actions/checkout@v3
 
-    - name: Set up Python
+    - name: Set up Python 3.13
       uses: actions/setup-python@v4
       with:
-        python-version: '3.11'
+        python-version: '3.13' # Теперь точно как у тебя
 
     - name: Install dependencies
       run: |
+        python -m pip install --upgrade pip
         pip install psutil colorama flake8
 
-    - name: Run tests
+    - name: Lint with flake8
       run: |
+        flake8 . --count --exit-zero --statistics
+
+    - name: Run Unit Tests
+      run: |
+        # Мы добавляем текущую папку в путь поиска, чтобы Python видел все модули
         export PYTHONPATH=$PYTHONPATH:.
+        # Эта команда найдет тесты, даже если они в папке или в корне
         python -m unittest discover .
 
-    - name: Build Docker
+    - name: Build Docker Image
       run: |
         docker build -t student-app .
